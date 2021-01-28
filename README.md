@@ -6,7 +6,7 @@ Welcome to Computer Networks!. Please modify this README file with the following
 Failure to do that will result in your repository being deleted, and you will be dropped from
 this class during the first week of instruction due to student's inactivity***
 
-Your name, and student id here
+Diana Benavides, 920652002
 
 ***IMPORTANT: Every time you finish a lab (or the course project) you must set the corresponding
 assignment to 'completed' in the following table of assignments. Failure to do it will result in
