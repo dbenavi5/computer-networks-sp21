@@ -16,8 +16,8 @@ first thing I check before grading a lab or the course project.***
 
 | Assignment                   |     C/NC      |
 | ---------------------------- | ------------- |
-| Lab 0                        | not completed |
-| Lab 1                        | not completed |
+| Lab 0                        | completed     |
+| Lab 1                        | completed     |
 | Lab 2                        | not completed |
 | Lab 3                        | not completed |
 | Lab 4                        | not completed |
