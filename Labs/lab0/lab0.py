@@ -3,9 +3,9 @@
 # Date: 02/03/2020
 # Lab0: Getting Started with Python
 # Goal: Learning the basics of Python
-# Student Name:
-# Student ID:
-# Student Github Username:
+# Student Name: Diana Benavides
+# Student ID: 920652002
+# Student Github Username: dbenavi5
 # Instructions: Complete the TODO sections for each problem
 # Guidelines: Read each problem carefully, and implement them correctly. Grade is based on lab correctness/completeness
 #               No partial credit will be given.
@@ -22,9 +22,9 @@ Github Username:
 """
 import unittest
 
-name = ""  # TODO: your name
-SID = 000000000  # TODO: your student id
-git_username = ""  # TODO: your github username
+name = "Name: Diana Benavides"  # TODO: your name
+SID = "SID: 920652002"  # TODO: your student id
+git_username = "Github Username: dbenavi5"  # TODO: your github username
 print(name)
 print(SID)
 print(git_username)
@@ -46,8 +46,14 @@ def product_or_sum(value1, value2, threshold=100):
     :threshold: an integer representing the limit for the product of the two values
     :return: the product or the sum of both values
     """
-    result = 0
-    # TODO: your code here
+    # initialize product result
+    result = value1 * value2
+
+    # check if result of product is less than threshold than return result,
+    # otherwise return sum of result
+    if result <= threshold:
+        return result
+    result = value1 + value2
     return result
 
 
@@ -67,7 +73,14 @@ def str_times_found(str_to_find, original_str):
     :return: an integer representing the number of times str_to_find was found
     """
     result = 0
-    # TODO: your code here
+    # transform original string to a single strings of words
+    my_str = original_str.split()
+
+    # loop over each word to find matches
+    for i in my_str:
+        # checks each words
+        if i == str_to_find:
+            result += 1
     return result
 
 
@@ -86,6 +99,12 @@ def summation(list_of_integers):
     """
     result = []
     # TODO: your code here
+    for i in range(len(list_of_integers)):
+        if i == 0:
+            result.append(list_of_integers[i])
+        else:
+            result.append(list_of_integers[i-1] + list_of_integers[i])
+
     return result
 
 
@@ -104,8 +123,18 @@ def merge_odds(list1, list2):
     :list2:
     :return: a new ordered list with all the odds values from both lists.
     """
-    odds = []
+    odds = [0]
     # TODO: your code here
+    for i in range(len(list1)):
+        if list1[i] % 2 == 1:
+            odds.append(list1[i])
+
+    for j in range(len(list2)):
+        if list2[j] % 2 == 1:
+            odds.append(list2[j])
+
+    odds.remove(0)
+    odds.sort()
     return odds
 
 
@@ -126,6 +155,16 @@ def merge_odds_with_keys(list1, list2):
     """
     odds = {}
     # TODO: your code here
+    for i in range(len(list1)):
+        if list1[i] % 2 == 1:
+            odds[i] = [list1[i]]
+
+    for i in range(len(list2)):
+        if list2[i] % 2 == 1:
+            if i not in odds:
+                odds[i] = [list2[i]]
+            else:
+                odds[i].append(list2[i])
     return odds
 
 

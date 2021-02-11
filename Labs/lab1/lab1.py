@@ -3,9 +3,9 @@
 # Date: 02/03/2020
 # Lab1: Object Oriented Programming
 # Goal: Learning Python OOP basics
-# Student Name:
-# Student ID:
-# Student Github Username:
+# Student Name: Diana Benavides
+# Student ID: 920652002
+# Student Github Username: dbenavi5
 # Instructions: Read each problem carefully, and implement them correctly.
 #               Your grade in Labs is based on passing all the unit tests provided.
 #               The following is an example of output for a program that passes all the unit tests.
@@ -24,9 +24,9 @@ Name: Jose
 SID: 91744100
 Github Username: joseortizcostadev
 """
-name = "" # TODO: your name
-SID = 000000000 # TODO: your student id
-git_username = "" # TODO: your github username
+name = "Name: Diana" # TODO: your name
+SID = "SID: 920652002" # TODO: your student id
+git_username = "Github Username: dbenavi5" # TODO: your github username
 print(name)
 print(SID)
 print(git_username)
@@ -43,6 +43,8 @@ class Employee (object):
         :param department:
         """
         # TODO: create two local instance attributes and set them to the assigned parameters.
+        self.name = name
+        self.department = department
 
 
     def info(self):
@@ -51,7 +53,8 @@ class Employee (object):
         :return: "<employee name> works in the <department name> department"
                  i.e Sarah works in the Engineering department
         """
-        return None 
+        employee_info = self.name + " works in the " + self.department + " department"
+        return employee_info
 
 
 
@@ -76,7 +79,7 @@ class Department(object):
         :return: VOID
         """
         # TODO: implement your code here
-        pass
+        self.name = name
 
     def add_employee(self, employee_name):
         """
@@ -85,8 +88,9 @@ class Department(object):
         :return: VOID
         """
         # TODO: create a employee object
+        employee_info = Employee(employee_name, self)
         # TODO: add the employee object to the self.employees list.
-        pass
+        self.employees.append(employee_info)
 
     def list_of_employees(self):
         """
@@ -94,12 +98,12 @@ class Department(object):
         :return: the list of employees working in this department.
         """
         # TODO: return the self.employee list
-        return None
+        return self.employees
 
 
 print('\n')
 
-########################## Problem 2: Inheritance #######################################################################
+########################## Problem 3: Inheritance #######################################################################
 """
 Class Manager inherits data from class Employee. 
 The manager class has a private method that provides a random id, and a public method that shows all the info about 
@@ -118,7 +122,11 @@ class Manager(Employee):
         :return: <info from employee> " with manager id: " <manager id>
                  i.e Sarah works in the Engineering department with manager id: 2345"
         """
-        return None
+
+        emp_info = self.name + " works in the " \
+                   + self.department + " department with manager id: " + str(self.managerID)
+
+        return emp_info
 
 
 
@@ -159,4 +167,3 @@ class TestCases(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
