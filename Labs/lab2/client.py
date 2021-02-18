@@ -3,15 +3,17 @@
 # Date: 02/03/2020
 # Lab3: TCP Client Socket
 # Goal: Learning Networking in Python with TCP sockets
-# Student Name:
-# Student ID:
-# Student Github Username:
+# Student Name: Diana Benavides
+# Student ID: 920652002
+# Student Github Username: dbenavi5
 # Instructions: Read each problem carefully, and implement them correctly.
 ########################################################################################################################
 
 # don't modify this imports.
 import socket
 import pickle
+import sys
+
 from clienthelper import ClientHelper
 
 ######################################## Client Socket ###############################################################3
@@ -36,7 +38,13 @@ class Client(object):
         :server_ip_address: the know ip address of the server
         :server_port: the port of the server
         """
-        pass  # delete this line after implementation
+
+        try:
+            self.client.connect((server_ip_address, server_port))
+            print("connected...")
+        except socket.error as msg:
+            print("not connecting...")
+            sys.exit(1)
 
     def bind(self, client_ip='', client_port=12000):
         """
@@ -54,7 +62,10 @@ class Client(object):
         :param data: the raw data to serialize (note that data can be in any format.... string, int, object....)
         :return: VOID
         """
-        pass  # delete this line after implementation
+
+        self.client.send(pickle.dump(data))
+
+        return None
 
     def receive(self, max_alloc_buffer=4090):
         """
@@ -62,7 +73,12 @@ class Client(object):
         :param max_alloc_buffer: Max allowed allocated memory for this data
         :return: the deserialized data.
         """
-        deserialized_data = None
+        while True:
+            data = self.client.receive(max_alloc_buffer)
+            if not data:
+                break
+            deserialized_data = pickle.loads(data)
+
         return deserialized_data
 
 
@@ -70,14 +86,16 @@ class Client(object):
         """
         TODO: create an object of the client helper and start it.
         """
-        pass  # delete this line after implementation
+        obj = self.client.client_helper()
+        obj.start()
 
     def close(self):
         """
         TODO: close this client
         :return: VOID
         """
-        pass  # delete this line after implementation
+        self.client.close()
+        return None
 
 
 # main code to run client
