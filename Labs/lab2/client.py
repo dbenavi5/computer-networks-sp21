@@ -41,10 +41,10 @@ class Client(object):
 
         try:
             self.client.connect((server_ip_address, server_port))
-            print("connected...")
+            self.id = self.receive()
+            print(f'{self.id} connected to {server_ip_address}/{server_port}')
         except socket.error as msg:
             print("not connecting...")
-            sys.exit(1)
 
     def bind(self, client_ip='', client_port=12000):
         """
@@ -63,9 +63,7 @@ class Client(object):
         :return: VOID
         """
 
-        self.client.send(pickle.dump(data))
-
-        return None
+        self.client.send(pickle.dumps(data))
 
     def receive(self, max_alloc_buffer=4090):
         """
@@ -73,11 +71,10 @@ class Client(object):
         :param max_alloc_buffer: Max allowed allocated memory for this data
         :return: the deserialized data.
         """
-        while True:
-            data = self.client.receive(max_alloc_buffer)
-            if not data:
-                break
-            deserialized_data = pickle.loads(data)
+
+        data = self.client.recv(max_alloc_buffer)
+
+        deserialized_data = pickle.loads(data)
 
         return deserialized_data
 
@@ -86,7 +83,7 @@ class Client(object):
         """
         TODO: create an object of the client helper and start it.
         """
-        obj = self.client.client_helper()
+        obj = ClientHelper(self)
         obj.start()
 
     def close(self):
@@ -95,7 +92,6 @@ class Client(object):
         :return: VOID
         """
         self.client.close()
-        return None
 
 
 # main code to run client
@@ -104,3 +100,4 @@ if __name__ == '__main__':
     server_port = 12000
     client = Client()
     client.connect(server_ip, server_port) # creates a connection with the server
+    client.client_helper()
