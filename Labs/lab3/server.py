@@ -2,9 +2,9 @@
 # Class: CSC645-01 Computer Networks SFSU
 # Lab3: TCP Server Socket
 # Goal: Learning Networking in Python with TCP sockets
-# Student Name:
-# Student ID:
-# Student Github Username:
+# Student Name: Diana Benavides
+# Student ID:920652002
+# Student Github Username: dbenavi5
 # Program Running instructions: python3 server.py # compatible with python version 3
 #
 ########################################################################################################################
@@ -33,7 +33,7 @@ class Server(object):
         """
         self.host = host
         self.port = port
-        self.server = None  # TODO: create the server socket
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # TODO: create the server socket
         # self.handlers = {}  # ignore this for this lab. It will be used in lab 4
 
     def _bind(self):
@@ -41,7 +41,7 @@ class Server(object):
         # TODO: bind host and port to this server socket
         :return: VOID
         """
-        pass  # remove this line after implemented.
+        self.server.bind((self.host, self.port))
 
     def _listen(self):
         """
@@ -49,7 +49,8 @@ class Server(object):
         # TODO: if successful, print the message "Server listening at ip/port"
         :return: VOID
         """
-        pass  # remove this line after implemented.
+        self.server.listen(self.MAX_NUM_CONN)
+        print(f'Server listen at {self.host}/{self.port}')
 
     def _accept_clients(self):
         """
@@ -62,7 +63,18 @@ class Server(object):
                the student info after processing the data
         :return: VOID
         """
-        pass  # remove this line after implemented.
+        # put in loop and check for error (try-except clause)
+        while True:
+            try:
+                conn, address = self.server.accept()
+                client_handler = {'clientid': address[1]}
+                serialize_data = pickle.dumps(client_handler)
+                conn.send(serialize_data)
+                self._process_request(conn)
+            except socket.error as msg:
+                print(msg)
+
+
 
     def _sendID(self, clienthandler, clientid):
         """
@@ -70,9 +82,12 @@ class Server(object):
         :clienthandler: the handler created by the server for the client
         :clientid: an integer representing the client id assigned to the client
         """
-        pass  # remove this line after implemented.
 
-    def _process_request(self, clienthandler, request):
+        client_id = {'clientid': clientid}
+        serialized_data = pickle.dumps(client_id)  # creates a stream of bytes
+        clienthandler.send(serialized_data)
+
+    def _process_request(self, clienthandler):
         """
         TODO: process a request from the client and sends
               a response back acknowledging that the data was received
@@ -81,7 +96,19 @@ class Server(object):
         :clienthandler: the handler created by the server after accepting the client
         :request: the request from the client. It must be already deserialized.
         """
-        pass  # remove this line after implemented.
+        while True:
+            raw_data = clienthandler.recv(1024)  # receives data from this client
+            if not raw_data:
+                break
+            data = pickle.loads(raw_data)  # deserializes the data from the client
+            student_name = data['student_name']
+            github_username = data['github_username']
+            sid = data['sid']
+            log = "Connected: Student: " + student_name + ", Github Username: " + github_username + ", sid: " + str(sid)
+            print(log)
+            serialized_data = pickle.dumps(1)  # creates a stream of bytes
+            clienthandler.send(serialized_data)
+
 
     def run(self):
         """
