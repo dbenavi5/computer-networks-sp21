@@ -44,7 +44,11 @@ class ClientHandler:
               Recall that you must break the loop when the request received is empty.
         :return: VOID
         """
-        pass  # remove this line after this method is implemented.
+        while True:
+            data = self.process_request()
+            if not data:
+                break
+
 
     def process_request(self, request):
         """
