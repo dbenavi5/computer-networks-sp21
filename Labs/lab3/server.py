@@ -50,7 +50,7 @@ class Server(object):
         :return: VOID
         """
         self.server.listen(self.MAX_NUM_CONN)
-        print(f'Server listen at {self.host}/{self.port}')
+        print(f'Server listening at {self.host}/{self.port}')
 
     def _accept_clients(self):
         """
@@ -67,14 +67,11 @@ class Server(object):
         while True:
             try:
                 conn, address = self.server.accept()
-                client_handler = {'clientid': address[1]}
-                serialize_data = pickle.dumps(client_handler)
-                conn.send(serialize_data)
+                client_id = {'clientid': address[1]}
+                self._sendID(conn, client_id)
                 self._process_request(conn)
             except socket.error as msg:
-                print(msg)
-
-
+                print("error")
 
     def _sendID(self, clienthandler, clientid):
         """

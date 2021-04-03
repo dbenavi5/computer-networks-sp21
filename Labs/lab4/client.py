@@ -40,6 +40,7 @@ class Client(object):
         """
 
         try:
+            print("hello world!")
             self.client.connect((server_ip_address, server_port))
             self.id = self.receive()
             print(f'{self.id} connected to {server_ip_address}/{server_port}')

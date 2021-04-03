@@ -49,11 +49,12 @@ class Server(object):
         while True:
             try:
                 conn, address = self.server.accept()
-                client_handler = Thread(target=self._handler, args=(conn, address)).start()
-                serialize_data = pickle.dumps(client_handler)
+                self.handler = Thread(target=self._handler, args=(conn, address)).start()
+                client_id = {'clientid': address[1]}
+                serialize_data = pickle.dumps(client_id)
                 conn.send(serialize_data)
             except socket.error as msg:
-                print(msg)
+                print("error")
 
 
     def _handler(self, clienthandler, addr):
@@ -70,7 +71,7 @@ class Server(object):
         :addr: the addr list of server parameters created by the server when a client is accepted.
         """
         c_handler = ClientHandler(self, clienthandler, addr)
-        c_handler.run()
+        self.handlers = c_handler
 
     def run(self):
         """

@@ -43,7 +43,7 @@ class Client(object):
             self.id = self.receive()
             print(f'{self.id} connected to {server_ip_address}/{server_port}')
         except socket.error as msg:
-            print(msg)
+            print("not connecting...")
 
     def bind(self, client_ip='', client_port=12000):
         """

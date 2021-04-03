@@ -14,7 +14,7 @@ class ClientHelper:
         :return: the request created
         """
 
-        request = {'student_name': name, 'github_username': github_username,'sid': id}
+        request = {'student_name': name, 'github_username': github_username, 'sid': id}
 
         return request
 
