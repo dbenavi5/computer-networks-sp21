@@ -12,7 +12,6 @@
 # don't modify this imports.
 import socket
 import pickle
-import sys
 
 from clienthelper import ClientHelper
 

@@ -14,7 +14,7 @@
 
 import threading
 import pickle
-
+import time
 
 class ClientHandler:
     """
@@ -35,6 +35,7 @@ class ClientHandler:
         self.server = server_instance
         self.handler = clienthandler
         self.print_lock = threading.Lock()  # creates the print lock
+        self.messages = {}
         self.sendID(self.client_id)
 
     def process_requests(self):
@@ -60,7 +61,6 @@ class ClientHandler:
         :request: the request received from the client. Note that this must be already deserialized
         :return: VOID
         """
-
         student_name = request['student_name']
         github_username = request['github_username']
         sid = request['sid']
@@ -68,6 +68,7 @@ class ClientHandler:
         self.log(log)
         serialized_data = pickle.dumps(1)  # creates a stream of bytes
         request.send(serialized_data)
+
 
     def send(self, data):
         """

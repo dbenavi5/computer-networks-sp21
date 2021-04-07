@@ -49,8 +49,11 @@ class Server(object):
         # TODO: if successful, print the message "Server listening at ip/port"
         :return: VOID
         """
-        self.server.listen(self.MAX_NUM_CONN)
-        print(f'Server listening at {self.host}/{self.port}')
+        try:
+            self.server.listen(self.MAX_NUM_CONN)
+            print(f'Server listening at {self.host}/{self.port}')
+        except Exception as err:
+            print(err)
 
     def _accept_clients(self):
         """
@@ -71,7 +74,7 @@ class Server(object):
                 self._sendID(conn, client_id)
                 self._process_request(conn)
             except socket.error as msg:
-                print("error")
+                print(msg)
 
     def _sendID(self, clienthandler, clientid):
         """
@@ -79,7 +82,6 @@ class Server(object):
         :clienthandler: the handler created by the server for the client
         :clientid: an integer representing the client id assigned to the client
         """
-
         client_id = {'clientid': clientid}
         serialized_data = pickle.dumps(client_id)  # creates a stream of bytes
         clienthandler.send(serialized_data)
@@ -106,13 +108,13 @@ class Server(object):
             serialized_data = pickle.dumps(1)  # creates a stream of bytes
             clienthandler.send(serialized_data)
 
-
     def run(self):
         """
         Already implemented for you
         Run the server.
         :return: VOID
         """
+        self._bind()
         self._listen()
         self._accept_clients()
 
