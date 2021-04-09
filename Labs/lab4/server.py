@@ -4,7 +4,6 @@ import pickle
 from threading import Thread
 from clienthandler import ClientHandler
 
-
 class Server(object):
     """
     The server class implements a server socket that can handle multiple client connections.
@@ -36,12 +35,15 @@ class Server(object):
         TODO: copy and paste your implementation from lab 3
         :return: VOID
         """
-        self.server.listen(self.MAX_NUM_CONN)
-        print(f'Server listen at {self.host}/{self.port}')
+        try:
+            self.server.listen(self.MAX_NUM_CONN)
+            print(f'Server listen at {self.host}/{self.port}')
+        except Exception as err:
+            print(err)
 
     def _accept_clients(self):
         """
-        #TODO: Modify your implementation from lab 3, so now the
+        TODO: Modify your implementation from lab 3, so now the
                server can support multiple clients pipelined.
                HINT: you must thread the handler(...) method
         :return: VOID
@@ -49,13 +51,12 @@ class Server(object):
         while True:
             try:
                 conn, address = self.server.accept()
-                self.handler = Thread(target=self._handler, args=(conn, address)).start()
+                self.handlers = Thread(target=self._handler, args=(conn, address)).start()
                 client_id = {'clientid': address[1]}
                 serialize_data = pickle.dumps(client_id)
                 conn.send(serialize_data)
             except socket.error as msg:
-                print("error")
-
+                print(msg)
 
     def _handler(self, clienthandler, addr):
         """
@@ -79,9 +80,9 @@ class Server(object):
         Run the server.
         :return: VOID
         """
+        self._bind()
         self._listen()
         self._accept_clients()
-
 
 # main execution
 if __name__ == '__main__':
