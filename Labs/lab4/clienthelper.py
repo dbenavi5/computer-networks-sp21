@@ -6,7 +6,7 @@ class ClientHelper:
         self.student_id = 'SID: 920652002'  # TODO: your student id
         self.github_username = 'Github username: dbenavi5'  # TODO: your github username
 
-    def create_request(self, name, id, github_username):
+    def create_request(self, name, github_username, id):
         """
         TODO: create request with a Python dictionary to save the parameters given in this function
               the keys of the dictionary should be 'student_name', 'github_username', and
@@ -14,7 +14,7 @@ class ClientHelper:
         :return: the request created
         """
 
-        request = {'student_name': name, 'github_username': github_username,'sid': id}
+        request = {'student_name': name, 'github_username': github_username, 'sid': id}
 
         return request
 
@@ -42,7 +42,7 @@ class ClientHelper:
         TODO: create a request with your student info using the self.request(....) method
               send the request to the server, and then process the response sent from the server.
         """
-        request = self.create_request(self.student_name, self.student_id, self.github_username)
+        request = self.create_request(self.student_name, self.github_username, self.student_id)
 
         self.send_request(request)
         self.process_response()

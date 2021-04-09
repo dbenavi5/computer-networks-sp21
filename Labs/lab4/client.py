@@ -12,7 +12,6 @@
 # don't modify this imports.
 import socket
 import pickle
-import sys
 
 from clienthelper import ClientHelper
 
@@ -40,12 +39,11 @@ class Client(object):
         """
 
         try:
-            print("hello world!")
             self.client.connect((server_ip_address, server_port))
             self.id = self.receive()
             print(f'{self.id} connected to {server_ip_address}/{server_port}')
         except socket.error as msg:
-            print("not connecting...")
+            print(msg)
 
     def bind(self, client_ip='', client_port=12000):
         """
@@ -63,7 +61,6 @@ class Client(object):
         :param data: the raw data to serialize (note that data can be in any format.... string, int, object....)
         :return: VOID
         """
-
         self.client.send(pickle.dumps(data))
 
     def receive(self, max_alloc_buffer=4090):
@@ -72,11 +69,8 @@ class Client(object):
         :param max_alloc_buffer: Max allowed allocated memory for this data
         :return: the deserialized data.
         """
-
         data = self.client.recv(max_alloc_buffer)
-
         deserialized_data = pickle.loads(data)
-
         return deserialized_data
 
 

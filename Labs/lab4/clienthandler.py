@@ -11,17 +11,14 @@
 # Running instructions: This program needs the server to run. The server creates an object of this class.
 #
 ########################################################################################################################
-
 import threading
 import pickle
-import time
 
 class ClientHandler:
     """
     The client handler class receives and process client requests
     and sends responses back to the client linked to this handler.
     """
-
     def __init__(self, server_instance, clienthandler, addr):
         """
         Class constructor already implemented for you.
@@ -35,8 +32,7 @@ class ClientHandler:
         self.server = server_instance
         self.handler = clienthandler
         self.print_lock = threading.Lock()  # creates the print lock
-        self.messages = {}
-        self.sendID(self.client_id)
+        self.sendID(self)
 
     def process_requests(self):
         """
@@ -49,10 +45,9 @@ class ClientHandler:
             request = self.receive()
             if not request:
                 break
-            self.process_request(request)
+            self._process_request(request)
 
-
-    def process_request(self, request):
+    def _process_request(self, request):
         """
         TODO: This implementation is similar to the one you did in the method process_request(...)
               that was implemented in the server of lab 3.
@@ -61,14 +56,16 @@ class ClientHandler:
         :request: the request received from the client. Note that this must be already deserialized
         :return: VOID
         """
-        student_name = request['student_name']
-        github_username = request['github_username']
-        sid = request['sid']
-        log = "Connected: Student: " + student_name + ", Github Username: " + github_username + ", sid: " + str(sid)
-        self.log(log)
-        serialized_data = pickle.dumps(1)  # creates a stream of bytes
-        request.send(serialized_data)
-
+        try:
+            student_name = request['student_name']
+            github_username = request['github_username']
+            sid = request['sid']
+            log = "Connected: Student: " + student_name + ", Github Username: " + github_username + ", sid: " + str(sid)
+            self.log(log)
+            serialized_data = pickle.dumps(1)  # creates a stream of bytes
+            request.send(serialized_data)
+        except Exception as err:
+            print(err)
 
     def send(self, data):
         """
