@@ -21,7 +21,7 @@ first thing I check before grading a lab or the course project.***
 | Lab 2                        | completed     |
 | Lab 3                        | completed     |
 | Lab 4                        | completed     |
-| Course Project               | completed     |
+| Course Project               | not completed     |
 
 
 
