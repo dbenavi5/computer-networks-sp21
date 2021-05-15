@@ -39,9 +39,14 @@ class Menu:
 
         Your option <enter a number>:
         """
-        menu = ""
-        # your code here
-        print(menu)
+        # menu = ''
+        print('Options Available:')
+        print('1.  Get users list')
+        print('2.  Send a message')
+        print('3.  Get my messages')
+        print('4.  Send a direct message with UDP protocol')
+        print('5.  Broadcast a message with CDMA protocol')
+        # print(menu)
 
     @staticmethod
     def option(self):
@@ -51,6 +56,7 @@ class Menu:
         :return: an integer representing the option chosen by the user from the menu
         """
         option = 0
+
         return option
 
     @staticmethod

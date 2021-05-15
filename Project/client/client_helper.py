@@ -19,7 +19,6 @@ class ClientHelper:
             self.send_request(request)
         # elif option == 2:
 
-
     def send_request(self, request):
         """
         TODO: send the request passed as a parameter

@@ -13,6 +13,7 @@
 import socket
 import pickle
 
+from Project.server.menu import Menu
 from client_helper import ClientHelper
 
 ######################################## Client Socket ###############################################################3
@@ -81,6 +82,7 @@ class Client(object):
         obj = ClientHelper(self)
         obj.start()
 
+
     def close(self):
         """
         TODO: close this client
@@ -91,7 +93,7 @@ class Client(object):
 
 # main code to run client
 if __name__ == '__main__':
-    server_ip = '127.0.0.1'
+    server_ip = '10.0.0.49'
     server_port = 12000
     client = Client()
     client.connect(server_ip, server_port) # creates a connection with the server
