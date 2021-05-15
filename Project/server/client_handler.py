@@ -53,7 +53,6 @@ class ClientHandler:
         elif option == 5:
             response['payloads'] = self.broadcast()
 
-
         self.send(response)
 
     # Option 1
@@ -76,6 +75,10 @@ class ClientHandler:
                 return 1
         except Exception as err:
             self.log(err[1])
+        return 0
+
+    # Option 3
+    def get_message(self):
         return 0
 
     # Option 4

@@ -4,6 +4,7 @@ import pickle
 from threading import Thread
 from client_handler import ClientHandler
 
+
 class Server(object):
     """
     The server class implements a server socket that can handle multiple client connections.
@@ -37,7 +38,7 @@ class Server(object):
         """
         try:
             self.server.listen(self.MAX_NUM_CONN)
-            print(f'Server listen at {self.host}/{self.port}')
+            print(f'Server is running without issues {self.host}/{self.port}')
         except Exception as err:
             print(err)
 
@@ -83,6 +84,7 @@ class Server(object):
         self._bind()
         self._listen()
         self._accept_clients()
+
 
 # main execution
 if __name__ == '__main__':
