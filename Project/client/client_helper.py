@@ -1,6 +1,7 @@
 class ClientHelper:
 
     def __init__(self, client):
+        self.Menu = None
         self.client = client
         self.student_name = 'Name: Diana Benavides'  # TODO: your name
         self.student_id = 'SID: 920652002'  # TODO: your student id
@@ -13,11 +14,14 @@ class ClientHelper:
               'sid'.
         :return: the request created
         """
-        request = {'payload': None, 'headers': {}}
 
+        request = {'payload': None, 'headers': {}}
         if option == 1:
             self.send_request(request)
-        # elif option == 2:
+        elif option == 2:
+            # create menu object protocol
+            menu = self.Menu.get()
+            self.send_request(menu)
 
     def send_request(self, request):
         """
@@ -43,7 +47,7 @@ class ClientHelper:
         TODO: create a request with your student info using the self.request(....) method
               send the request to the server, and then process the response sent from the server.
         """
-        request = self.create_request(self.student_name, self.student_id, self.github_username)
+        request = self.create_request(self.student_name)
 
         self.send_request(request)
         self.process_response()

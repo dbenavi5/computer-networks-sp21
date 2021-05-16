@@ -12,9 +12,9 @@
 class Menu:
     """
     IMPORTANT MUST READ: The Menu class is the user interface that acts as a communication bridge between the user
-    and the Client-Server architecture of this application. The Menu is always located on the Server side (machine running the server).
-    However, it must be printed on the Client console by the ClientHelper object. In order to accomplish this, students
-    must create a
+    and the Client-Server architecture of this application. The Menu is always located on the Server side (machine
+    running the server). However, it must be printed on the Client console by the ClientHelper object. In order to
+    accomplish this, students must create a
     """
 
     @staticmethod
@@ -39,14 +39,16 @@ class Menu:
 
         Your option <enter a number>:
         """
-        # menu = ''
+        print('*' * 6, 'TCP/UDP Network', '*' * 6)
         print('Options Available:')
         print('1.  Get users list')
         print('2.  Send a message')
         print('3.  Get my messages')
         print('4.  Send a direct message with UDP protocol')
         print('5.  Broadcast a message with CDMA protocol')
-        # print(menu)
+
+        input('Your  option <enter number>: ')
+
 
     @staticmethod
     def option(self):
@@ -56,8 +58,14 @@ class Menu:
         :return: an integer representing the option chosen by the user from the menu
         """
         option = 0
+        try:
+            # check menu options
+            return option
+        except Exception as error:
+            if option is not range(5):
+                print(error)
 
-        return option
+
 
     @staticmethod
     def request_headers(self):
