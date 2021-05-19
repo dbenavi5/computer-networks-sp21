@@ -2,10 +2,11 @@ class ClientHelper:
 
     def __init__(self, client):
         self.client = client
-        self.student_name = 'Name: Diana Benavides'  # TODO: your name
-        self.student_id = 'SID: 920652002'  # TODO: your student id
-        self.github_username = 'Github username: dbenavi5'  # TODO: your github username
+        self.student_name = 'Diana Benavides'  # TODO: your name
+        self.student_id = '920652002'  # TODO: your student id
+        self.github_username = 'dbenavi5'  # TODO: your github username
 
+    # @staticmethod
     def create_request(self, name, github_username, id):
         """
         TODO: create request with a Python dictionary to save the parameters given in this function

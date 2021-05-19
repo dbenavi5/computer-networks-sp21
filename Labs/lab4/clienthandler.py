@@ -32,7 +32,7 @@ class ClientHandler:
         self.server = server_instance
         self.handler = clienthandler
         self.print_lock = threading.Lock()  # creates the print lock
-        self.sendID(self)
+        # self.sendID(self)
 
     def process_requests(self):
         """
@@ -63,9 +63,9 @@ class ClientHandler:
             log = "Connected: Student: " + student_name + ", Github Username: " + github_username + ", sid: " + str(sid)
             self.log(log)
             serialized_data = pickle.dumps(1)  # creates a stream of bytes
-            request.send(serialized_data)
+            self.send(serialized_data)
         except Exception as err:
-            print(err)
+            print("This error is from the clienthandlers file, _process_request() method: ", err)
 
     def send(self, data):
         """

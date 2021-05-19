@@ -12,13 +12,16 @@
 class Menu:
     """
     IMPORTANT MUST READ: The Menu class is the user interface that acts as a communication bridge between the user
-    and the Client-Server architecture of this application. The Menu is always located on the Server side (machine running the server).
-    However, it must be printed on the Client console by the ClientHelper object. In order to accomplish this, students
-    must create a
+    and the Client-Server architecture of this application. The Menu is always located on the Server side (machine
+    running the server). However, it must be printed on the Client console by the ClientHelper object. In order to
+    accomplish this, students must create a
     """
 
+    def __init__(self, client):
+        self.client = client
+
     @staticmethod
-    def get(self):
+    def print_menu(self):
         """
         TODO: shows the following menu on the client side
         ****** TCP/UDP Network ******
@@ -39,14 +42,17 @@ class Menu:
 
         Your option <enter a number>:
         """
-        # menu = ''
+        print('*' * 6, 'TCP/UDP Network', '*' * 6)
         print('Options Available:')
         print('1.  Get users list')
         print('2.  Send a message')
         print('3.  Get my messages')
         print('4.  Send a direct message with UDP protocol')
         print('5.  Broadcast a message with CDMA protocol')
-        # print(menu)
+
+        input('Your option <enter number>: ')
+
+        self.option = input
 
     @staticmethod
     def option(self):
@@ -56,6 +62,22 @@ class Menu:
         :return: an integer representing the option chosen by the user from the menu
         """
         option = 0
+        try:
+            # check menu options
+            if option == 1:
+                return 1
+            elif option == 2:
+                return 2
+            elif option == 3:
+                return 3
+            elif option == 4:
+                return 4
+            else:
+                return 5
+
+        except Exception as error:
+            if option is not range(5):
+                print(error)
 
         return option
 
@@ -66,7 +88,8 @@ class Menu:
               for each requests from the client related to this menu. For example, the headers for option 2,
               the expected headers in a client request are {'option':<integer>, 'message':<string>, 'recipient':<integer>}
         """
-        headers = ""
+        headers = {'option': None, 'message': '', 'recipient': None}
+
         return headers
 
     @staticmethod

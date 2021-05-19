@@ -1,6 +1,6 @@
 ########################################################################################################################
 # Class: Computer Networks
-# Date: 02/03/2020
+# Date: 05/19/2021
 # Lab3: TCP Client Socket
 # Goal: Learning Networking in Python with TCP sockets
 # Student Name: Diana Benavides
@@ -13,7 +13,6 @@
 import socket
 import pickle
 
-from Project.server.menu import Menu
 from client_helper import ClientHelper
 
 ######################################## Client Socket ###############################################################3
@@ -74,14 +73,12 @@ class Client(object):
         deserialized_data = pickle.loads(data)
         return deserialized_data
 
-
     def client_helper(self):
         """
         TODO: create an object of the client helper and start it.
         """
         obj = ClientHelper(self)
         obj.start()
-
 
     def close(self):
         """

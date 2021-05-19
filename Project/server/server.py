@@ -74,6 +74,7 @@ class Server(object):
         """
         c_handler = ClientHandler(self, clienthandler, addr)
         self.handlers = c_handler
+        c_handler.run()
 
     def run(self):
         """
@@ -84,6 +85,7 @@ class Server(object):
         self._bind()
         self._listen()
         self._accept_clients()
+        self._handler(self.handlers, self.port)
 
 
 # main execution

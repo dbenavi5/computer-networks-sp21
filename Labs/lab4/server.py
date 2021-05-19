@@ -4,6 +4,7 @@ import pickle
 from threading import Thread
 from clienthandler import ClientHandler
 
+
 class Server(object):
     """
     The server class implements a server socket that can handle multiple client connections.
@@ -51,8 +52,8 @@ class Server(object):
         while True:
             try:
                 conn, address = self.server.accept()
-                self.handlers = Thread(target=self._handler, args=(conn, address)).start()
                 client_id = {'clientid': address[1]}
+                self.handlers = Thread(target=self._handler, args=(conn, address)).start()
                 serialize_data = pickle.dumps(client_id)
                 conn.send(serialize_data)
             except socket.error as msg:
@@ -71,8 +72,10 @@ class Server(object):
         :clienthandler: the clienthandler child process that the server creates when a client is accepted
         :addr: the addr list of server parameters created by the server when a client is accepted.
         """
-        c_handler = ClientHandler(self, clienthandler, addr)
-        self.handlers = c_handler
+
+        ch_obj = ClientHandler(self, clienthandler, addr)
+        ch_obj.run()
+        self.handlers = ch_obj
 
     def run(self):
         """
@@ -83,6 +86,8 @@ class Server(object):
         self._bind()
         self._listen()
         self._accept_clients()
+        self._handler(self.handlers, self.port)
+
 
 # main execution
 if __name__ == '__main__':

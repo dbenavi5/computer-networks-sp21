@@ -2,6 +2,7 @@ import threading
 import pickle
 import time
 
+
 class ClientHandler:
 
     def __init__(self, server_instance, clienthandler, addr):
@@ -27,7 +28,6 @@ class ClientHandler:
                 break
             self.process_request(request)
 
-
     def process_request(self, request):
         """
         TODO: This implementation is similar to the one you did in the method process_request(...)
@@ -37,9 +37,10 @@ class ClientHandler:
         :request: the request received from the client. Note that this must be already deserialized
         :return: VOID
         """
-        # get options
+
+        # Get the options
         option = request['headers']['option']
-        response = {'payload': None, 'headers': {}, 'ack': -1}
+        response = {'payload': None, 'headers': {}, 'ack': -1}  # protocol
         if option == 1:
             response['payloads'] = self.user_connected()
         elif option == 2:
@@ -57,32 +58,39 @@ class ClientHandler:
 
     # Option 1
     def user_connected(self):
+        users = {}
+        clienthandler = self.server.handlers
+        for user_id, handler in clienthandler.items():
+            user = (handler.name, handler.id)
+            users[user_id] = user
 
-        return 0
+        return users
+
+    def process_option(self, option):
+        if option == 1:
+            user_list = self.user_connected()
+            self.handler.send(user_list)  # this is sent to the client so the client prints it on screen
 
     # Option 2
-    def save_message(self, message, user):
+    def save_message(self, message, recipient_id):
         try:
-            # search for the correct user handler that belongs to the user
-            user_handler = self.server.handlers[user]
-            # list messages
-            message_list = user_handler.messages
-            # check if the sender exits the user message list
+            # 1. search for the correct user handler that belongs to the user
+            recipient_handler = self.server.handlers[recipient_id]
+            # 2. list messages = {} (messages from constructor)
+            message_list = recipient_handler.messages
+            # 3. check if the sender exits the user message list
             if self.client_id not in message_list.keys():
                 message_list[self.client_id] = []
                 message_info = (message, time.time())
                 message_list[self.client_id].append(message_info)
                 return 1
-        except Exception as err:
-            self.log(err[1])
-        return 0
-
-    # Option 3
-    def get_message(self):
+        except Exception as error:
+            self.log(error[1])
         return 0
 
     # Option 4
     def direct_message(self):
+        # send message to recipient, create protocols and match UDP port to TCP port
         return 0
 
     # option 5
@@ -129,4 +137,3 @@ class ClientHandler:
         Already implemented for you
         """
         self.process_requests()
-
