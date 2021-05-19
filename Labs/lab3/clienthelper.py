@@ -6,7 +6,8 @@ class ClientHelper:
         self.student_id = 'SID: 920652002'  # TODO: your student id
         self.github_username = 'Github username: dbenavi5'  # TODO: your github username
 
-    def create_request(self, name, id, github_username):
+    @staticmethod
+    def create_request(name, id, github_username):
         """
         TODO: create request with a Python dictionary to save the parameters given in this function
               the keys of the dictionary should be 'student_name', 'github_username', and

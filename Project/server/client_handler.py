@@ -2,6 +2,7 @@ import threading
 import pickle
 import time
 
+
 class ClientHandler:
 
     def __init__(self, server_instance, clienthandler, addr):
@@ -26,7 +27,6 @@ class ClientHandler:
             if not request:
                 break
             self.process_request(request)
-
 
     def process_request(self, request):
         """
@@ -137,4 +137,3 @@ class ClientHandler:
         Already implemented for you
         """
         self.process_requests()
-

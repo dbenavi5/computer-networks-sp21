@@ -1,11 +1,18 @@
+import socket
+
+from Project.server.client_handler import ClientHandler
+
+
 class ClientHelper:
 
-    def __init__(self, client):
-        self.Menu = None
+    def __init__(self, client, menu, tracker):
+        self.tracker = tracker
+        self.menu = menu
         self.client = client
         self.student_name = 'Name: Diana Benavides'  # TODO: your name
         self.student_id = 'SID: 920652002'  # TODO: your student id
         self.github_username = 'Github username: dbenavi5'  # TODO: your github username
+
 
     def create_request(self, option):
         """
@@ -20,8 +27,10 @@ class ClientHelper:
             self.send_request(request)
         elif option == 2:
             # create menu object protocol
-            menu = self.Menu.get()
-            self.send_request(menu)
+            self.menu.print_menu()
+            self.send_request(self.menu)
+        # elif option == 3:
+
 
     def send_request(self, request):
         """
@@ -47,7 +56,13 @@ class ClientHelper:
         TODO: create a request with your student info using the self.request(....) method
               send the request to the server, and then process the response sent from the server.
         """
-        request = self.create_request(self.student_name)
+        getUserServerIpAddr = str(input('Enter the server ip address: '))
+        getUserPort = int(input('Enter the server port: '))
+        getClientName = str(input('Enter client name: '))
+        # self.handler(getUserServerIpAddr, getUserPort, getClientName)
+        # while True:
 
-        self.send_request(request)
-        self.process_response()
+        # request = self.create_request(self.student_name)
+        #
+        # self.send_request(request)
+        # self.process_response()

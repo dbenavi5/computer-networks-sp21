@@ -73,14 +73,12 @@ class Client(object):
         deserialized_data = pickle.loads(data)
         return deserialized_data
 
-
     def client_helper(self):
         """
         TODO: create an object of the client helper and start it.
         """
         obj = ClientHelper(self)
         obj.start()
-
 
     def close(self):
         """

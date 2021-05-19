@@ -17,8 +17,11 @@ class Menu:
     accomplish this, students must create a
     """
 
+    def __init__(self, client):
+        self.client = client
+
     @staticmethod
-    def get(self):
+    def print_menu(self):
         """
         TODO: shows the following menu on the client side
         ****** TCP/UDP Network ******
@@ -47,8 +50,9 @@ class Menu:
         print('4.  Send a direct message with UDP protocol')
         print('5.  Broadcast a message with CDMA protocol')
 
-        input('Your  option <enter number>: ')
+        input('Your option <enter number>: ')
 
+        self.option = input
 
     @staticmethod
     def option(self):
@@ -60,12 +64,22 @@ class Menu:
         option = 0
         try:
             # check menu options
-            return option
+            if option == 1:
+                return 1
+            elif option == 2:
+                return 2
+            elif option == 3:
+                return 3
+            elif option == 4:
+                return 4
+            else:
+                return 5
+
         except Exception as error:
             if option is not range(5):
                 print(error)
 
-
+        return option
 
     @staticmethod
     def request_headers(self):
@@ -74,7 +88,8 @@ class Menu:
               for each requests from the client related to this menu. For example, the headers for option 2,
               the expected headers in a client request are {'option':<integer>, 'message':<string>, 'recipient':<integer>}
         """
-        headers = ""
+        headers = {'option': None, 'message': '', 'recipient': None}
+
         return headers
 
     @staticmethod

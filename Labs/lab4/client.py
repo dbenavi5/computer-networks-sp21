@@ -41,7 +41,7 @@ class Client(object):
         try:
             self.client.connect((server_ip_address, server_port))
             self.id = self.receive()
-            print(f'{self.id} connected to {server_ip_address}/{server_port}')
+            print(f'{self.id} has successfully connected to {server_ip_address}/{server_port}')
         except socket.error as msg:
             print(msg)
 
@@ -72,7 +72,6 @@ class Client(object):
         data = self.client.recv(max_alloc_buffer)
         deserialized_data = pickle.loads(data)
         return deserialized_data
-
 
     def client_helper(self):
         """
