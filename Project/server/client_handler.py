@@ -39,22 +39,28 @@ class ClientHandler:
         """
 
         # Get the options
-        option = request['headers']['option']
-        response = {'payload': None, 'headers': {}, 'ack': -1}  # protocol
-        if option == 1:
-            response['payloads'] = self.user_connected()
-        elif option == 2:
-            message = request['payloads']
-            user = request['headers']['user']
-            response['ack'] = self.save_message(message, user)
-        elif option == 3:
-            response['payload'] = self.messages
-        elif option == 4:
-            response['headers'] = self.direct_message()
-        elif option == 5:
-            response['payloads'] = self.broadcast()
+        try:
+            self.print_menu()
+            option = request['headers']['option']
+            response = {'payload': None, 'headers': {}, 'ack': -1}  # protocol
+            if option == 1:
+                response['payloads'] = self.user_connected()
+                self.process_option(option)
+            elif option == 2:
+                message = request['payloads']
+                recipient = request['headers']['user']
+                response['ack'] = self.save_message(message, recipient)
+            elif option == 3:
+                response['payload'] = self.messages
+            # elif option == 4:
+            #     response['headers'] = self.direct_message()
+            # elif option == 5:
 
-        self.send(response)
+            self.log(response)
+            # serialized_data = pickle.dumps(1)
+            self.send(response)
+        except Exception as err:
+            print("This error is from the clienthandlers file, _process_request() method: ", err)
 
     # Option 1
     def user_connected(self):
@@ -88,14 +94,28 @@ class ClientHandler:
             self.log(error[1])
         return 0
 
-    # Option 4
-    def direct_message(self):
-        # send message to recipient, create protocols and match UDP port to TCP port
-        return 0
+    # # Option 4
+    # def direct_message(self):
+    #     # send message to recipient, create protocols and match UDP port to TCP port
+    #     return 0
+    #
+    # # option 5
+    # def broadcast(self):
+    #     return 0
 
-    # option 5
-    def broadcast(self):
-        return 0
+    def print_menu(self):
+
+        print('*' * 6, 'TCP/UDP Network', '*' * 6)
+        print('Options Available:')
+        print('1.  Get users list')
+        print('2.  Send a message')
+        print('3.  Get my messages')
+        print('4.  Send a direct message with UDP protocol')
+        print('5.  Broadcast a message with CDMA protocol')
+
+        input('Your option <enter number>: ')
+
+        self.option = input
 
     def send(self, data):
         """

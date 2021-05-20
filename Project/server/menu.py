@@ -55,7 +55,7 @@ class Menu:
         self.option = input
 
     @staticmethod
-    def option(self):
+    def option():
         """
         TODO: Ask the user to select an option from the menu
               Note. you must handle exceptions for options chosen that are not in the allowed range
@@ -82,18 +82,18 @@ class Menu:
         return option
 
     @staticmethod
-    def request_headers(self):
+    def request_headers():
         """
         TODO: In this method students implement the headers of the menu. That's it, the options the server expect
               for each requests from the client related to this menu. For example, the headers for option 2,
               the expected headers in a client request are {'option':<integer>, 'message':<string>, 'recipient':<integer>}
         """
-        headers = {'option': None, 'message': '', 'recipient': None}
+        headers = {'option': None, 'message': {}, 'recipient': None}
 
         return headers
 
     @staticmethod
-    def response_headers(self):
+    def response_headers():
         """
         TODO: In this method students implement the headers of the menu. That's it, the options the server sends to
               the client for each response related to this menu. For example, the headers for the response of option 3

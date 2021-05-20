@@ -73,11 +73,11 @@ class Client(object):
         deserialized_data = pickle.loads(data)
         return deserialized_data
 
-    def client_helper(self):
+    def client_helper(self, menu, tracker):
         """
         TODO: create an object of the client helper and start it.
         """
-        obj = ClientHelper(self)
+        obj = ClientHelper(self, menu, tracker)
         obj.start()
 
     def close(self):
@@ -93,5 +93,5 @@ if __name__ == '__main__':
     server_ip = '10.0.0.49'
     server_port = 12000
     client = Client()
-    client.connect(server_ip, server_port) # creates a connection with the server
+    client.connect(server_ip, server_port)  # creates a connection with the server
     client.client_helper()
